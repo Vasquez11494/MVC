@@ -36,4 +36,11 @@ class Usuarios extends ActiveRecord {
         $this->usuario_situacion = $args['usuario_situacion'] ?? 1;
     }
 
+    public static function EliminarUsuarios($id){
+
+        $sql = "DELETE FROM usuarios WHERE usuario_id = $id";
+
+        return self::SQL($sql);
+    }
+
 }
