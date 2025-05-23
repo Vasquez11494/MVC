@@ -113,7 +113,7 @@ const GuardarUsuario = async (event) => {
 
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
-
+        console.log(datos)
         const { codigo, mensaje } = datos
 
         if (codigo == 1) {
@@ -220,6 +220,7 @@ const datatable = new DataTable('#TableUsuarios', {
         { title: 'Correo ', data: 'usuario_correo' },
         { title: 'Telefono ', data: 'usuario_telefono' },
         { title: 'Nit', data: 'usuario_nit' },
+        { title: 'Fecha', data: 'usuario_fecha' },
         {
             title: 'Destino',
             data: 'usuario_estado',
@@ -252,6 +253,7 @@ const datatable = new DataTable('#TableUsuarios', {
                          data-telefono="${row.usuario_telefono}"  
                          data-correo="${row.usuario_correo}"  
                          data-estado="${row.usuario_estado}"  
+                         data-fecha="${row.usuario_fecha}"  
                          <i class='bi bi-pencil-square me-1'></i> Modificar
                      </button>
                      <button class='btn btn-danger eliminar mx-1' 
@@ -276,6 +278,7 @@ const llenarFormulario = (event) => {
     document.getElementById('usuario_telefono').value = datos.telefono
     document.getElementById('usuario_correo').value = datos.correo
     document.getElementById('usuario_estado').value = datos.estado
+    document.getElementById('usuario_fecha').value = datos.fecha
 
     BtnGuardar.classList.add('d-none');
     BtnModificar.classList.remove('d-none');
@@ -397,7 +400,7 @@ const EliminarUsuarios = async (e) => {
                     text: mensaje,
                     showConfirmButton: true,
                 });
-                
+
                 BuscarUsuarios();
             } else {
                 await Swal.fire({

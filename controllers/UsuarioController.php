@@ -20,6 +20,8 @@ class UsuarioController extends ActiveRecord
 
         getHeadersApi();
 
+        // echo json_encode($_POST);
+        // return;
 
 
         $_POST['usuario_apellidos'] = htmlspecialchars($_POST['usuario_apellidos']);
@@ -75,6 +77,8 @@ class UsuarioController extends ActiveRecord
         }
         $_POST['usuario_estado'] = htmlspecialchars($_POST['usuario_estado']);
 
+        $_POST['usuario_fecha'] = date('Y-m-d H:i', strtotime($_POST['usuario_fecha']));
+
         $estado = $_POST['usuario_estado'];
 
         if ($estado == "P" || $estado == "F" || $estado == "C") {
@@ -92,6 +96,7 @@ class UsuarioController extends ActiveRecord
                     'usuario_telefono' => $_POST['usuario_telefono'],
                     'usuario_correo' => $_POST['usuario_correo'],
                     'usuario_estado' => $_POST['usuario_estado'],
+                    'usuario_fecha' => $_POST['usuario_fecha'],
                     'usuario_situacion' => 1
                 ]);
 
@@ -195,6 +200,7 @@ class UsuarioController extends ActiveRecord
 
         $_POST['usuario_nit'] = filter_var($_POST['usuario_nit'], FILTER_SANITIZE_NUMBER_INT);
         $_POST['usuario_correo'] = filter_var($_POST['usuario_correo'], FILTER_SANITIZE_EMAIL);
+        $_POST['usuario_fecha'] = date('Y-m-d H:i', strtotime($_POST['usuario_fecha']));
 
         if (!filter_var($_POST['usuario_correo'], FILTER_SANITIZE_EMAIL)) {
             http_response_code(400);
@@ -222,7 +228,7 @@ class UsuarioController extends ActiveRecord
                     'usuario_nit' => $_POST['usuario_nit'],
                     'usuario_telefono' => $_POST['usuario_telefono'],
                     'usuario_correo' => $_POST['usuario_correo'],
-                    'usuario_estado' => $_POST['usuario_estado'],
+                    'usuario_fecha' => $_POST['usuario_fecha'],
                     'usuario_situacion' => 1
                 ]);
                 $data->actualizar();
@@ -258,9 +264,8 @@ class UsuarioController extends ActiveRecord
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
             // $data = Usuarios::find($id);
-            // // $data->sincronizar($_POST);
             // $data->sincronizar([
-            //     'usuario_situacion' => 0,
+            // 'usuario_situacion' => 0,
             // ]);
             // $data->actualizar();
 
